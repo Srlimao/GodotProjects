@@ -11,28 +11,33 @@ extents = Vector2( 3, 2 )
 
 script/source = "extends Area2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = \"textvar\"
+var isOnArea
 
 func _ready():
 	set_process(true)
 	pass
 
 func _process(delta):
-	set_global_pos(get_global_pos() + Vector2(0.5,1) * delta * 500)
+	if not isOnArea:
+		set_global_pos(get_global_pos() + Vector2(0.5,1) * delta * 500)
+		set_global_rot(atan2(0.5,1))
 	pass
 
 func _on_Rain_Drop_area_enter( area ):
-	get_node(\"AnimationPlayer\").play(\"Drop\")
-	yield(get_node(\"AnimationPlayer\"),\"finished\")
-	queue_free()
+	onHit()
 	pass # replace with function body
 
 
 func _on_VisibilityNotifier2D_exit_screen():
-	queue_free()
+	onHit()
 	pass # replace with function body
+	
+func onHit():
+	isOnArea = true
+	get_node(\"AnimationPlayer\").play(\"Drop\")
+	yield(get_node(\"AnimationPlayer\"),\"finished\")
+	queue_free()
+	pass
 "
 
 [sub_resource type="Animation" id=3]
