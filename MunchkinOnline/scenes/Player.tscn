@@ -420,7 +420,7 @@ script/script = SubResource( 1 )
 [node name="Arm_Left" type="Sprite" parent="."]
 
 transform/pos = Vector2( 71.1628, -75.5705 )
-transform/rot = 132.346
+transform/rot = -8.37748
 texture = ExtResource( 1 )
 offset = Vector2( 1.3269, 31.8442 )
 
@@ -511,7 +511,7 @@ __meta__ = {
 [node name="Remote_Arm_Left" type="RemoteTransform2D" parent="Body"]
 
 transform/pos = Vector2( 48.0344, -75.1975 )
-transform/rot = 132.346
+transform/rot = -8.37748
 z/relative = false
 remote_path = NodePath("../../Arm_Left")
 __meta__ = {
@@ -522,7 +522,7 @@ __meta__ = {
 [node name="End" type="Position2D" parent="Body/Remote_Arm_Left"]
 
 transform/pos = Vector2( 14.3697, 77.0222 )
-transform/rot = -222.416
+transform/rot = -81.8054
 z/relative = false
 __meta__ = {
 "_edit_bone_": true
