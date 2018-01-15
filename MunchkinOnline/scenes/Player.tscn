@@ -35,7 +35,7 @@ func _process(delta):
 		node_pole.set_z(1)
 		node_pole.set_rot(node_left_hand.get_global_rot())
 	else:
-		node_pole.set_global_pos(node_pole.get_global_pos() + Vector2(1,0) * 1000 * delta)
+		node_pole.set_global_pos(node_pole.get_global_pos() + Vector2(1,0.05) * 1000 * delta)
 	pass
 
 func atk():

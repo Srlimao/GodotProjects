@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Resources/1_knight_.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3, 2 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Area2D
+
+# class member variables go here, for example:
+# var a = 2
+# var b = \"textvar\"
+
+func _ready():
+	set_process(true)
+	pass
+
+func _process(delta):
+	set_global_pos(get_global_pos() + Vector2(0.5,1) * delta * 500)
+	pass
+
+func _on_Rain_Drop_area_enter( area ):
+	queue_free()
+	pass # replace with function body
+
+
+func _on_VisibilityNotifier2D_exit_screen():
+	print(\"menos uma chuva\")
+	queue_free()
+	pass # replace with function body
+"
+
+[node name="Rain_Drop" type="Area2D"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 2 )
+
+[node name="teste" type="Sprite" parent="."]
+
+texture = ExtResource( 1 )
+modulate = Color( 0.413086, 0.56118, 0.734375, 1 )
+region = true
+region_rect = Rect2( 270, 726, 6, 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+transform/scale = Vector2( 0.3, 0.3 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[connection signal="area_enter" from="." to="." method="_on_Rain_Drop_area_enter"]
+
+[connection signal="exit_screen" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_exit_screen"]
+
+
