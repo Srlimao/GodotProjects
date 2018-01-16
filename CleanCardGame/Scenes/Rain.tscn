@@ -13,13 +13,13 @@ func _ready():
 func _process(delta):
 	rain_node = rain_drop_scn.instance()
 	add_child(rain_node)
-	rain_node.set_global_pos(Vector2(1,0) * rand_range(0,1280))
+	rain_node.set_pos(Vector2(1,0) * rand_range(0,1280))
 	rain_node = rain_drop_scn.instance()
 	add_child(rain_node)
-	rain_node.set_global_pos(Vector2(1,0) * rand_range(0,1280))
+	rain_node.set_pos(Vector2(1,0) * rand_range(0,1280))
 	rain_node = rain_drop_scn.instance()
 	add_child(rain_node)
-	rain_node.set_global_pos(Vector2(1,0) * rand_range(0,1280))
+	rain_node.set_pos(Vector2(1,0) * rand_range(0,1280))
 	
 	pass"
 

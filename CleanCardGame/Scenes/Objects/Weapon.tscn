@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://Resources/1_KNIGHT/1_spear_.png" type="Texture" id=1]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -5.36981, -167.837, -17.0233, -194.949, 1.28934, -235.617, 18.9745, -193.904, 9.29536, -165.584 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 6.06898, 20.8291, 6.42747, 88.2244, -5.04408, 86.432, -3.61014, 9.35751 )
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -20.5907, -146.195, -5.36981, -167.837, 9.29536, -165.584, 5.71051, -135.471, -9.08545, -124.849 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 17.1821, -9.64224, -3.61014, 9.35751, -16.5156, 7.2066, -15.7987, -10.7177, -3.61012, -14.661, 6.78596, -17.8874 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 17.1821, -9.64224, 17.1821, 18.3197, 6.06898, 20.8291, -3.61014, 9.35751 )
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 6.78596, -17.8874, -3.61012, -14.661, -4.68559, -58.3963, 6.06898, -48.7172 )
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 5.71049, -80.6225, 16.4651, -69.8679, 17.1821, -59.1133, 6.06898, -48.7172, -4.68559, -58.3963, -13.6477, -79.547 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 5.71049, -80.6225, -13.6477, -79.547, -4.12164, -107.913, 5.35202, -96.7543 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 18.9745, -115.754, 5.35202, -96.7543, -4.12164, -107.913, -9.08545, -124.849, 5.71051, -135.471, 15.0311, -127.943 )
+
+[node name="Weapon" type="Area2D"]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/2/trigger = false
+shapes/3/shape = SubResource( 4 )
+shapes/3/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/3/trigger = false
+shapes/4/shape = SubResource( 5 )
+shapes/4/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/4/trigger = false
+shapes/5/shape = SubResource( 6 )
+shapes/5/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/5/trigger = false
+shapes/6/shape = SubResource( 7 )
+shapes/6/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/6/trigger = false
+shapes/7/shape = SubResource( 8 )
+shapes/7/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/7/trigger = false
+shapes/8/shape = SubResource( 9 )
+shapes/8/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/8/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="1_spear_" type="Sprite" parent="."]
+
+transform/rot = 0.682733
+texture = ExtResource( 1 )
+offset = Vector2( 2.27936, -74.2148 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+visibility/visible = false
+build_mode = 0
+polygon = Vector2Array( 1.28934, -235.617, -17.0233, -194.949, -5.36981, -167.837, -20.5907, -146.195, -9.08545, -124.849, -4.12164, -107.913, -13.6477, -79.547, -4.68559, -58.3963, -3.61012, -14.661, -15.7987, -10.7177, -16.5156, 7.2066, -3.61014, 9.35751, -5.04408, 86.432, 6.42747, 88.2244, 6.06898, 20.8291, 17.1821, 18.3197, 17.1821, -9.64224, 6.78596, -17.8874, 6.06898, -48.7172, 17.1821, -59.1133, 16.4651, -69.8679, 5.71049, -80.6225, 5.35202, -96.7543, 18.9745, -115.754, 15.0311, -127.943, 5.71051, -135.471, 9.29536, -165.584, 18.9745, -193.904 )
+shape_range = Vector2( 0, 8 )
+trigger = false
+
+

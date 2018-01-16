@@ -18,9 +18,9 @@ func _ready():
 	pass
 
 func _process(delta):
-	if not isOnArea:
-		set_global_pos(get_global_pos() + Vector2(0.5,1) * delta * 500)
-		set_global_rot(atan2(0.5,1))
+	#if not isOnArea:
+	set_global_pos(get_global_pos() + Vector2(0.5,1) * delta * 500)
+	set_global_rot(atan2(0.5,1))
 	pass
 
 func _on_Rain_Drop_area_enter( area ):
@@ -33,7 +33,8 @@ func _on_VisibilityNotifier2D_exit_screen():
 	pass # replace with function body
 	
 func onHit():
-	isOnArea = true
+	#isOnArea = true
+	set_process(false)
 	get_node(\"AnimationPlayer\").play(\"Drop\")
 	yield(get_node(\"AnimationPlayer\"),\"finished\")
 	queue_free()
