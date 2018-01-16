@@ -4,13 +4,14 @@ var player_scn = preload("res://Scenes/Objects/Player.tscn")
 var player_node
 
 func _ready(): 
+	player_node = get_node("Player")
 	set_process(true)
 	pass
 	
 func _process(delta):
 	
 	if Input.is_action_pressed("ui_accept"):
-		save_game()
+		player_node.move()
 #			Player.new(10)
 #			player_node = player_scn.instance()
 #			add_child(player_node)

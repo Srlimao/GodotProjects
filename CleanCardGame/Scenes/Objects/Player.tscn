@@ -18,6 +18,7 @@ var classe
 var pos
 var l_weapon_scn = preload(\"res://Scenes/Objects/Weapon.tscn\")
 var l_weapon_nod 
+var newpos
 
 func _ready():
 	l_weapon_nod = l_weapon_scn.instance()
@@ -45,6 +46,11 @@ func get_val():
 
 func atk(tipo_atk):
 	get_node(\"AnimationPlayer\").play(\"Atk1\")
+	get_node(\"AnimationPlayer\").queue(\"Idle\")
+	pass
+
+func move():
+	get_node(\"AnimationPlayer\").play(\"Walk\")
 	get_node(\"AnimationPlayer\").queue(\"Idle\")
 	pass
 
@@ -200,7 +206,7 @@ points = Vector2Array( 22.6319, 34.0291, 26.103, 43.9692, -19.4952, 44.7581, -16
 custom_solver_bias = 0.0
 points = Vector2Array( 14.4274, -0.840115, 18.5296, 20.1445, 18.0563, 31.6624, -16.4974, 40.3403, -13.4996, 13.8334, -9.23952, -3.68014, -0.246101, -9.99131, 9.69398, -8.72908 )
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=31]
 
 resource/name = "Atk1"
 length = 0.5
@@ -227,9 +233,8 @@ tracks/1/keys = {
 "values": [ 6.22668, 17.0981, -47.9849 ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=32]
 
-resource/name = "Idle"
 length = 2.0
 loop = true
 step = 0.1
@@ -388,10 +393,10 @@ tracks/15/path = NodePath("Torso/Head:transform/rot")
 tracks/15/interp = 1
 tracks/15/imported = false
 tracks/15/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ 0.0, 5.20388 ]
 }
 tracks/16/type = "value"
 tracks/16/path = NodePath("Torso/Right_Leg/Area2D:transform/pos")
@@ -418,10 +423,10 @@ tracks/18/path = NodePath("Torso/Left_Arm:transform/pos")
 tracks/18/interp = 1
 tracks/18/imported = false
 tracks/18/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
 "update": 0,
-"values": [ Vector2( 36, -90 ), Vector2( 36, -83 ) ]
+"values": [ Vector2( 36, -90 ) ]
 }
 tracks/19/type = "value"
 tracks/19/path = NodePath("Torso/Left_Arm:transform/rot")
@@ -431,7 +436,7 @@ tracks/19/keys = {
 "times": FloatArray( 0, 1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ -76.5602, -76.5602 ]
+"values": [ -76.5602, -72.1879 ]
 }
 tracks/20/type = "value"
 tracks/20/path = NodePath("Torso/Right_Leg:transform/pos")
@@ -458,10 +463,10 @@ tracks/22/path = NodePath("Torso/Right_Arm:transform/pos")
 tracks/22/interp = 1
 tracks/22/imported = false
 tracks/22/keys = {
-"times": FloatArray( 0, 1 ),
-"transitions": FloatArray( 1, 1 ),
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
 "update": 0,
-"values": [ Vector2( -60, -91 ), Vector2( -60, -84 ) ]
+"values": [ Vector2( -60, -91 ) ]
 }
 tracks/23/type = "value"
 tracks/23/path = NodePath("Torso/Right_Arm:transform/rot")
@@ -471,7 +476,7 @@ tracks/23/keys = {
 "times": FloatArray( 0, 1 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 0.0 ]
+"values": [ 0.0, -4.90854 ]
 }
 tracks/24/type = "value"
 tracks/24/path = NodePath("Torso/Left_Leg:transform/pos")
@@ -516,10 +521,80 @@ tracks/27/keys = {
 
 [sub_resource type="Animation" id=33]
 
-resource/name = "Jump"
+resource/name = "Walk"
 length = 1.0
-loop = false
+loop = true
 step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Torso/Left_Arm/Position2D:transform/rot")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ -13.2525, -13.2525 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Torso/Head:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 14.9425, 10.1433, 14.9425 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Torso/Right_Arm:transform/rot")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -32.6706, -22.3193, -32.6706 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Torso:transform/rot")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -14.3654, -11.0793, -14.3654 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Torso/Left_Arm:transform/rot")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -21.2277, -45.3688, -21.2277 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Torso/Right_Leg:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 40.5895, -33.2841, 40.5895 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Torso/Left_Leg:transform/rot")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = {
+"times": FloatArray( 0, 0.5, 1 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -52.6133, 51.9385, -52.6133 ]
+}
 
 [node name="Player" type="Node2D"]
 
@@ -816,9 +891,9 @@ __meta__ = {
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
-anims/Atk1 = SubResource( 32 )
-anims/Idle = SubResource( 31 )
-anims/Jump = SubResource( 33 )
+anims/Atk1 = SubResource( 31 )
+anims/Idle = SubResource( 32 )
+anims/Walk = SubResource( 33 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
