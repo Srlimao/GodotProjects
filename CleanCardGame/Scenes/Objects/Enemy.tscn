@@ -1,6 +1,7 @@
-[gd_scene load_steps=33 format=1]
+[gd_scene load_steps=34 format=1]
 
 [ext_resource path="res://Resources/3_knight_.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Objects/Hp_Bar.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -161,6 +162,7 @@ var hp = 18
 var armor = 10
 
 func _ready():
+	get_node(\"Hp_Bar\").update_hp(hp)
 	set_process(true)
 	pass
 
@@ -171,10 +173,15 @@ func _process(delta):
 	
 func hit(dmg):
 	print(dmg)
-	if armor > dmg:
-		armor = armor - dmg
-		dmg = dmg - armor
-	
+	armor = armor - dmg
+	dmg = dmg - armor
+	if dmg > 0:
+		hp = hp - dmg
+	if armor < 0 :
+		armor = 0
+	if hp < 0 :
+		hp = 0
+	get_node(\"Hp_Bar\").update_hp(hp)
 	pass"
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -318,5 +325,9 @@ text = "00"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Hp_Bar" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( -162.148, -272.628 )
 
 

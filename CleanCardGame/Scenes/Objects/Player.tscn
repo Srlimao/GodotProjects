@@ -13,7 +13,7 @@ resource/name = "player_script"
 script/source = "extends KinematicBody2D
 
 var hp = 6
-var bp = 4
+var bp = 50
 var base_dmg = 2
 var name
 var classe
@@ -54,8 +54,7 @@ func hit(dmg):
 
 func hasBp(atk_val):
 	return (bp >= atk_val)
-	pass
-"
+	pass"
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 
@@ -600,6 +599,10 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = SubResource( 1 )
 
+[node name="Status_Pos" type="Position2D" parent="."]
+
+transform/pos = Vector2( -204.987, -304.71 )
+
 [node name="Label_Hp" type="Label" parent="."]
 
 focus/ignore_mouse = true
@@ -768,7 +771,7 @@ __meta__ = {
 editor/display_folded = true
 visibility/behind_parent = true
 transform/pos = Vector2( 36, -90 )
-transform/rot = -25.9406
+transform/rot = -76.5602
 texture = ExtResource( 4 )
 offset = Vector2( 38.4206, 1.5906 )
 __meta__ = {
@@ -816,7 +819,7 @@ trigger = false
 [node name="Position2D" type="Position2D" parent="Torso/Left_Arm"]
 
 transform/pos = Vector2( 84.0433, -0.0815125 )
-transform/rot = -47.9849
+transform/rot = 6.22668
 __meta__ = {
 "_edit_bone_": true
 }

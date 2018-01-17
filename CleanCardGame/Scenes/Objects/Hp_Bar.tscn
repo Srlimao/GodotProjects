@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://Resources/heartFull.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource/name = "hp_script"
+script/source = "extends Node2D
+
+var hp_cont = preload(\"res://Resources/heartFull.png\")
+var hp = 6
+var hp_node
+
+func _ready():
+	pass
+func _process(delta):
+	for i in range(hp):
+		hp_node = Sprite.new()
+		add_child(hp_node)
+		hp_node.set_texture(hp_cont)
+		hp_node.set_pos(Vector2(i * hp_cont.get_width(),0) )
+	set_process(false)
+	pass
+
+func update_hp(hp):
+	self.hp = hp
+	set_process(true)
+	pass"
+
+[node name="Hp_Bar" type="Node2D"]
+
+script/script = SubResource( 1 )
+
+[node name="heartFull" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 1 )
+
+
