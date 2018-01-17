@@ -162,7 +162,7 @@ var hp = 18
 var armor = 10
 
 func _ready():
-	get_node(\"Hp_Bar\").update_hp(hp)
+	get_node(\"Hp_Bar\").create_hp(hp)
 	set_process(true)
 	pass
 
@@ -172,16 +172,15 @@ func _process(delta):
 	pass
 	
 func hit(dmg):
-	print(dmg)
 	armor = armor - dmg
 	dmg = dmg - armor
 	if dmg > 0:
 		hp = hp - dmg
+		get_node(\"Hp_Bar\").update_hp(hp)
 	if armor < 0 :
 		armor = 0
 	if hp < 0 :
 		hp = 0
-	get_node(\"Hp_Bar\").update_hp(hp)
 	pass"
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -328,6 +327,6 @@ max_lines_visible = -1
 
 [node name="Hp_Bar" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( -162.148, -272.628 )
+transform/pos = Vector2( -83.478, -273.736 )
 
 
