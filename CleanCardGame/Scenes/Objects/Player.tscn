@@ -10,17 +10,20 @@
 [sub_resource type="GDScript" id=1]
 
 resource/name = "player_script"
-script/source = "extends Node2D
+script/source = "extends KinematicBody2D
 
-var hp
+var hp = 6
+var bp = 4
+var base_dmg = 2
 var name
 var classe
 var pos
 var l_weapon_scn = preload(\"res://Scenes/Objects/Weapon.tscn\")
 var l_weapon_nod 
-var newpos
+
 
 func _ready():
+	randomize()
 	l_weapon_nod = l_weapon_scn.instance()
 	get_node(\"Torso/Left_Arm/Position2D\").add_child(l_weapon_nod)
 	get_node(\"AnimationPlayer\").set_blend_time ( \"Atk1\",\"Idle\", 0.5 )
@@ -28,37 +31,30 @@ func _ready():
 	pass
 
 func _process(delta):
+	get_node(\"Label_Hp\").set_text(str(hp))
+	get_node(\"Label_Bp\").set_text(str(bp))
 	pass
 
-func create(hp=10,name=\"\",classe=1,pos=Vector2(0,0)):
-	self.hp = hp
-	print(\"MyThing class contstructed with variable %s\" % hp)
+
+
+func atk(tipo_atk, target):
+	if hasBp(tipo_atk):
+		bp -= tipo_atk
+		get_node(\"AnimationPlayer\").play(\"Atk1\")
+		yield(get_node(\"AnimationPlayer\"),\"finished\")
+		target.hit(base_dmg * int(rand_range(1,6)))
+		get_node(\"AnimationPlayer\").queue(\"Idle\")
+		
 	pass
 
-func set_val(hp):
-	print(\"variable value changed to %s\" % hp)
-	pass
-
-func get_val():
-	print(\"variable value %s\" % hp)
-	return hp
-	pass
-
-func atk(tipo_atk):
-	get_node(\"AnimationPlayer\").play(\"Atk1\")
-	get_node(\"AnimationPlayer\").queue(\"Idle\")
-	pass
-
-func move():
-	get_node(\"AnimationPlayer\").play(\"Walk\")
-	get_node(\"AnimationPlayer\").queue(\"Idle\")
-	pass
 
 func hit(dmg):
 	
 	pass
 
-
+func hasBp(atk_val):
+	return (bp >= atk_val)
+	pass
 "
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
@@ -217,20 +213,20 @@ tracks/0/path = NodePath("Torso/Left_Arm:transform/rot")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0, 0.4, 0.5 ),
-"transitions": FloatArray( 1, 1, 1 ),
+"times": FloatArray( 0, 0.4, 0.5, 0.7, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ -76.5602, -111.885, -25.9406 ]
+"values": [ -76.5602, -111.885, -25.9406, -25.9406, -76.5602 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Torso/Left_Arm/Position2D:transform/rot")
 tracks/1/interp = 1
 tracks/1/imported = false
 tracks/1/keys = {
-"times": FloatArray( 0, 0.4, 0.5 ),
-"transitions": FloatArray( 1, 1, 1 ),
+"times": FloatArray( 0, 0.4, 0.5, 0.7, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 6.22668, 17.0981, -47.9849 ]
+"values": [ 6.22668, 17.0981, -47.9849, -47.9849, 6.22668 ]
 }
 
 [sub_resource type="Animation" id=32]
@@ -596,9 +592,43 @@ tracks/6/keys = {
 "values": [ -52.6133, 51.9385, -52.6133 ]
 }
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="KinematicBody2D"]
 
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
 script/script = SubResource( 1 )
+
+[node name="Label_Hp" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 96.0
+margin/top = -237.0
+margin/right = 149.0
+margin/bottom = -210.0
+text = "0000"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label_Bp" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 95.0
+margin/top = -205.0
+margin/right = 148.0
+margin/bottom = -178.0
+text = "0000"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="Torso" type="Sprite" parent="."]
 
@@ -738,7 +768,7 @@ __meta__ = {
 editor/display_folded = true
 visibility/behind_parent = true
 transform/pos = Vector2( 36, -90 )
-transform/rot = -76.5602
+transform/rot = -25.9406
 texture = ExtResource( 4 )
 offset = Vector2( 38.4206, 1.5906 )
 __meta__ = {
@@ -786,7 +816,7 @@ trigger = false
 [node name="Position2D" type="Position2D" parent="Torso/Left_Arm"]
 
 transform/pos = Vector2( 84.0433, -0.0815125 )
-transform/rot = 6.22668
+transform/rot = -47.9849
 __meta__ = {
 "_edit_bone_": true
 }

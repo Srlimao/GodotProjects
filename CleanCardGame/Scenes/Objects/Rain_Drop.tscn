@@ -27,6 +27,9 @@ func _on_Rain_Drop_area_enter( area ):
 	onHit()
 	pass # replace with function body
 
+func _on_Rain_Drop_body_enter( body ):
+	onHit()
+	pass # replace with function body
 
 func _on_VisibilityNotifier2D_exit_screen():
 	onHit()
@@ -39,6 +42,8 @@ func onHit():
 	yield(get_node(\"AnimationPlayer\"),\"finished\")
 	queue_free()
 	pass
+
+
 "
 
 [sub_resource type="Animation" id=3]
@@ -119,5 +124,7 @@ blend_times = [  ]
 autoplay = "Idle"
 
 [connection signal="area_enter" from="." to="." method="_on_Rain_Drop_area_enter"]
+
+[connection signal="body_enter" from="." to="." method="_on_Rain_Drop_body_enter"]
 
 

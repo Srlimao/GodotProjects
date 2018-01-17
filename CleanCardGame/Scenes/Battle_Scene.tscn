@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Scenes/Battle_Scene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Rain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/bg1.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Objects/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Objects/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Objects/Player.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -44,9 +45,13 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 268.34, 568.14 )
+transform/pos = Vector2( 1050.94, 573.353 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 270, 570 )
 
 [node name="Button" type="Button" parent="."]
 
@@ -64,6 +69,6 @@ shortcut = null
 text = "AtkBasico"
 flat = false
 
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="button_up" from="Button" to="." method="_on_Button_button_up"]
 
 
