@@ -160,6 +160,7 @@ script/source = "extends KinematicBody2D
 
 var hp = 18
 var armor = 10
+var is_getting_hit = false
 
 func _ready():
 	get_node(\"Hp_Bar\").create_hp(hp)
@@ -167,11 +168,13 @@ func _ready():
 	pass
 
 func _process(delta):
+	check_hit_anim(delta)
 	get_node(\"Label_Hp\").set_text(\"Vida: \"+str(hp))
 	get_node(\"Label_Ap\").set_text(\"Def: \"+str(armor))
 	pass
 	
 func hit(dmg):
+	is_getting_hit= true
 	armor = armor - dmg
 	dmg = dmg - armor
 	if dmg > 0:
@@ -181,6 +184,18 @@ func hit(dmg):
 		armor = 0
 	if hp < 0 :
 		hp = 0
+	pass
+
+
+func check_hit_anim(delta):
+	if is_getting_hit:
+		if get_global_pos().x < 1070:
+			move(Vector2(1,0) * 400 * delta)
+		else:
+			
+			is_getting_hit = false
+	elif get_global_pos().x > 1050:
+		move(Vector2(-1,0) * 100 * delta)
 	pass"
 
 [node name="Enemy" type="KinematicBody2D"]
