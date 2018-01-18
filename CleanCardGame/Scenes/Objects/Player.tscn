@@ -42,7 +42,7 @@ func atk(tipo_atk, target):
 		bp -= tipo_atk
 		get_node(\"AnimationPlayer\").play(\"Atk1\")
 		yield(get_node(\"AnimationPlayer\"),\"finished\")
-		target.hit(base_dmg  *int(rand_range(1,6)))
+		target.hit(base_dmg * int(rand_range(1,6)))
 		get_node(\"AnimationPlayer\").queue(\"Idle\")
 		
 	pass
