@@ -42,15 +42,7 @@ func atk(tipo_atk, target):
 	if hasBp(tipo_atk):
 		is_attacking = true
 		bp -= tipo_atk
-<<<<<<< HEAD
-		get_node(\"AnimationPlayer\").play(\"Atk1\")
-		yield(get_node(\"AnimationPlayer\"),\"finished\")
 		target.hit(base_dmg * int(rand_range(1,6)))
-		get_node(\"AnimationPlayer\").queue(\"Idle\")
-=======
-		target.hit(base_dmg * int(rand_range(1,6)))
->>>>>>> 743e74ac3a363873d81ebc8cd3dd17eb464284ba
-		
 	pass
 
 
