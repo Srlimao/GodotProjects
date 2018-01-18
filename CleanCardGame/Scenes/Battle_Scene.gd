@@ -27,5 +27,4 @@ func save_game():
 
 func _on_Button_button_up():
 	player_node.atk(1, get_node("Enemy"))
-	get_node("Camera2D").shake(0.2)
 	pass # replace with function body
