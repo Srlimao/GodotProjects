@@ -158,20 +158,24 @@ points = Vector2Array( -32.8312, -3.31158, 92.9036, -38.6371, 94.6998, -9.29895,
 resource/name = "enemyScript"
 script/source = "extends KinematicBody2D
 
+signal perform_attack
+
+onready var start_pos = get_global_pos()
+var bp = 1
 var hp = 18
-var armor = 10
+var armor = 0
 var is_getting_hit = false
 var block_anim = preload(\"res://Scenes/Animations/Blockedn.tscn\")
 var broke_anim = preload(\"res://Scenes/Animations/Broken.tscn\")
+var is_attacking = false
+var base_dmg = 2
+var turn_delay = 2
 
 func _ready():
-	get_node(\"Hp_Bar\").create_hp(hp)
-	set_process(true)
+	get_node(\"Hp_Bar\").create_hp(hp,armor)
 	pass
 
 func _process(delta):
-	get_node(\"Label_Hp\").set_text(\"Vida: \"+str(hp))
-	get_node(\"Label_Ap\").set_text(\"Def: \"+str(armor))
 	pass
 	
 func hit(dmg):
@@ -192,13 +196,19 @@ func hit(dmg):
 		hp = hp - dmg
 		if hp < 0:
 			hp = 0
-		get_node(\"Hp_Bar\").update_hp(hp)
+		get_node(\"Hp_Bar\").update_hp(hp,armor)
 	pass
 	
 func animate(animation_preload,position_node):
 	var anim_node = animation_preload.instance()
 	add_child(anim_node)
 	anim_node.set_pos(position_node.get_pos())
+	pass
+func get_hp():
+	return self.hp
+	pass
+func get_armor():
+	return self.armor
 	pass"
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -316,36 +326,6 @@ build_mode = 0
 polygon = Vector2Array( -51.6778, -167.896, -31.9138, -210.06, 7.35069, -221.128, 40.8178, -200.836, 62.6899, -170.268, 61.8994, -199.519, 115.13, -227.716, 116.975, -214.012, 104.59, -205.316, 120.664, -203.208, 106.698, -187.66, 112.759, -181.336, 100.9, -169.478, 106.961, -162.362, 88.5149, -153.139, 91.6772, -144.18, 79.2917, -139.436, 86.6703, -122.044, 80.8728, -99.3812, 66.9063, -94.3743, 68.4874, -89.3674, 95.63, -80.6712, 104.878, -75.7588, 97.6935, -66.7777, 100.687, -48.2169, 92.9036, -38.6371, 94.6998, -9.29895, 93.5023, 8.06442, 82.1263, 39.1988, 60.5718, 55.3647, 46.8008, 61.9508, 56.9794, 78.7155, 23.4501, 79.3142, -5.28931, 79.9129, -26.8438, 78.1167, -55.5833, 78.1167, -37.6211, 51.1735, -28.0413, 36.2051, -34.6274, 29.619, -38.2198, 12.2556, -32.8312, -3.31158, -37.6211, -12.2926, -54.3858, -0.317902, -58.5769, 12.8543, -72.9466, 23.6316, -107.075, -3.91031, -107.075, -9.29895, -119.049, 4.47202, -129.228, -6.90399, -117.253, -21.2737, -152.579, -39.8346, -145.993, -45.8219, -160.961, -61.3891, -162.158, -45.8219, -198.681, -88.3323, -200.478, -133.836, -156.171, -121.263, -126.833, -86.5361, -135.215, -83.5424, -118.451, -66.7777, -118.451, -81.7462, -96.8961, -43.427, -84.9214, -52.408, -78.934, -42.8282, -60.9719, -51.2106, -68.7555, -70.9689, -62.1693, -82.3449, -63.9656, -118.269, -60.9719, -122.46, -64.5643, -142.817, -73.5453, -152.996, -67.7725, -155.406, -88.1123, -160.442, -81.7198, -167.803, -93.9236, -174.777, -88.306, -180.588, -101.866, -189.692, -90.4368, -197.247, -103.028, -206.739, -91.018, -210.613, -56.1499, -196.085 )
 shape_range = Vector2( 0, 29 )
 trigger = false
-
-[node name="Label_Hp" type="Label" parent="."]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -258.0
-margin/top = -221.0
-margin/right = -218.0
-margin/bottom = -207.0
-text = "00"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="Label_Ap" type="Label" parent="."]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -259.0
-margin/top = -199.0
-margin/right = -219.0
-margin/bottom = -185.0
-text = "00"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="Hp_Bar" parent="." instance=ExtResource( 2 )]
 

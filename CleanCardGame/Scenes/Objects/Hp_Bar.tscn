@@ -1,34 +1,52 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Resources/hp_bar_under.png" type="Texture" id=1]
 [ext_resource path="res://Resources/hp_bar_over.png" type="Texture" id=2]
+[ext_resource path="res://Resources/1_KNIGHT/1_shield_.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Fonte1.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://Scenes/Animations/Hit_Number.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 
 resource/name = "hp_script"
 script/source = "extends Node2D
 
-var new_val
+var new_val = 0
 var curr_hp
+var max_hp
+var armor
+var node_armor
 
 func _ready():
+	node_armor = get_node(\"armor_sprite\")
 	#set_process(true)
 	pass
 func _process(delta):
-	
+	get_node(\"Label\").set_text(str(int(new_val),\"/\",max_hp))
 	curr_hp = get_node(\"TextureProgress\").get_value()
-	get_node(\"TextureProgress\").set_value(curr_hp - (int(10)*delta))
+	get_node(\"TextureProgress\").set_value(curr_hp - (10*delta))
 	
 	if  curr_hp <= new_val:
 		set_process(false)
 	pass
 
-func update_hp(hp):
+func update_hp(hp,armor):
 	set_process(true)
+	self.armor = armor
+	if armor <= 0:
+		node_armor.hide()
+	get_node(\"Hit_Number\").hit(new_val - hp)
 	new_val = hp
+	
 	pass
 
-func create_hp(max_hp):
+func create_hp(max_hp,armor):
+	self.armor = armor
+	if armor > 0 :
+		node_armor.set_hidden(false)
+	self.max_hp = max_hp
+	self.new_val = max_hp
+	get_node(\"Label\").set_text(str(max_hp,\"/\",max_hp))
 	get_node(\"TextureProgress\").set_max(max_hp)
 	get_node(\"TextureProgress\").set_value(max_hp)
 	pass
@@ -67,19 +85,34 @@ texture/progress = ExtResource( 2 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="armor_sprite" type="Sprite" parent="."]
 
-focus/ignore_mouse = false
+transform/pos = Vector2( 1.92259, 21.7908 )
+transform/scale = Vector2( 0.552287, 0.552287 )
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 119.0
-margin/top = -11.0
-margin/right = 190.0
+size_flags/vertical = 0
+margin/left = 115.0
+margin/top = -8.0
+margin/right = 223.0
 margin/bottom = 46.0
-bbcode/enabled = false
-bbcode/bbcode = ""
-visible_characters = -1
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.757813, 0.0355225, 0.0355225, 1 )
+custom_colors/font_color_shadow = Color( 0.1875, 0.0197754, 0.0197754, 1 )
+text = "22"
+align = 1
+valign = 1
 percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Hit_Number" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 275.613, -24.2054 )
 
 

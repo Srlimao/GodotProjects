@@ -1,1 +1,1 @@
-{"id":1, "hp":10, "name":"Will"}
+{"players":[{"id":1, "hp":20, "name":"Will", "armor":10}, {"id":2, "hp":18, "name":"Bixo", "armor":6}]}

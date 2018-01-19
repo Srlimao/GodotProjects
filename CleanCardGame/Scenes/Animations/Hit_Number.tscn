@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Resources/Fonte1.fnt" type="BitmapFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+resource/name = "hitnumber_script"
+script/source = "extends Node2D
+
+var tempo = 0.6
+var angle
+onready var orig_pos = get_pos()
+var elv_location = 0
+export var elv_speed = .03
+
+func _ready():
+	randomize()
+	var curve2 = Curve2D.new()
+	curve2.add_point(get_global_pos())
+	curve2.add_point(get_global_pos() + Vector2(1,0) * 50)
+	get_node(\"Path2D\").set_curve(curve2)
+	set_fixed_process(true)
+	set_hidden(true)
+	pass
+func _fixed_process(delta):
+	get_node(\"Path2D/PathFollow2D\").set_unit_offset(elv_location)
+	elv_location += elv_speed
+	if elv_location >=1:
+		set_fixed_process(false)
+		set_hidden(true)
+		elv_location = 0
+
+	pass
+
+func _process(delta):
+	
+	
+#	self.set_pos(self.get_pos() + angle * delta * 300)
+#	tempo -= delta
+#	if tempo <= 0:
+#		set_hidden(true)
+#		self.set_pos(orig_pos)
+#		tempo = 0.6
+#		set_process(false)
+	pass
+
+func hit(val):
+	angle = Vector2(rand_range(-0.5,0.5),-1)
+	get_node(\"Path2D/PathFollow2D/KinematicBody2D/Label\").set_text(str(val))
+	set_hidden(false)
+	set_fixed_process(true)
+	pass"
+
+[sub_resource type="Curve2D" id=2]
+
+resource/name = "curve"
+bake_interval = 5.0
+_data = {
+"points": Vector2Array( 0, 0, 0, 0, 1.12268, 1.67148, -107, -115, 0, 0, 113.123, -92.3285 )
+}
+
+[node name="Hit_Number" type="Node2D"]
+
+transform/pos = Vector2( 114, 200 )
+script/script = SubResource( 1 )
+elv_speed = 0.03
+
+[node name="Path2D" type="Path2D" parent="."]
+
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+transform/pos = Vector2( 1.12268, 1.67148 )
+transform/rot = 88.8584
+offset = 0.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = false
+cubic_interp = true
+loop = true
+lookahead = 4.0
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="Path2D/PathFollow2D"]
+
+transform/pos = Vector2( -1.27094, 2.90322 )
+transform/rot = -88.8584
+transform/scale = Vector2( 1, 1 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="Label" type="Label" parent="Path2D/PathFollow2D/KinematicBody2D"]
+
+rect/scale = Vector2( 1.5, 1.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -25.0
+margin/top = -14.0
+margin/right = 19.0
+margin/bottom = 18.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.756863, 0.0352941, 0.0352941, 1 )
+custom_colors/font_color_shadow = Color( 0.184314, 0.0196078, 0.0196078, 1 )
+text = "-22"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+
