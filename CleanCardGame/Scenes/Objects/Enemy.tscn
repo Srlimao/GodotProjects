@@ -161,6 +161,8 @@ script/source = "extends KinematicBody2D
 var hp = 18
 var armor = 10
 var is_getting_hit = false
+var block_anim = preload(\"res://Scenes/Animations/Blockedn.tscn\")
+var broke_anim = preload(\"res://Scenes/Animations/Broken.tscn\")
 
 func _ready():
 	get_node(\"Hp_Bar\").create_hp(hp)
@@ -168,34 +170,35 @@ func _ready():
 	pass
 
 func _process(delta):
-	check_hit_anim(delta)
 	get_node(\"Label_Hp\").set_text(\"Vida: \"+str(hp))
 	get_node(\"Label_Ap\").set_text(\"Def: \"+str(armor))
 	pass
 	
 func hit(dmg):
+	print(dmg)
 	is_getting_hit= true
-	armor = armor - dmg
-	dmg = dmg - armor
+	if dmg >= armor:
+		if armor > 0:
+			animate(broke_anim,get_node(\"3_knight_/head_pos\"))
+		armor = armor - dmg
+		dmg = - armor
+		armor = 0
+	else:
+		animate(block_anim,get_node(\"3_knight_/head_pos\"))
+		armor -= dmg
+		dmg = 0
+	
 	if dmg > 0:
 		hp = hp - dmg
+		if hp < 0:
+			hp = 0
 		get_node(\"Hp_Bar\").update_hp(hp)
-	if armor < 0 :
-		armor = 0
-	if hp < 0 :
-		hp = 0
 	pass
-
-
-func check_hit_anim(delta):
-	if is_getting_hit:
-		if get_global_pos().x < 1070:
-			move(Vector2(1,0) * 400 * delta)
-		else:
-			
-			is_getting_hit = false
-	elif get_global_pos().x > 1050:
-		move(Vector2(-1,0) * 100 * delta)
+	
+func animate(animation_preload,position_node):
+	var anim_node = animation_preload.instance()
+	add_child(anim_node)
+	anim_node.set_pos(position_node.get_pos())
 	pass"
 
 [node name="Enemy" type="KinematicBody2D"]
@@ -301,6 +304,10 @@ script/script = SubResource( 31 )
 texture = ExtResource( 1 )
 offset = Vector2( -40.581, -72.5587 )
 flip_h = true
+
+[node name="head_pos" type="Position2D" parent="3_knight_"]
+
+transform/pos = Vector2( 0, -120.033 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 
