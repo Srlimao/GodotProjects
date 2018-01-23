@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://Resources/hp_bar_under.png" type="Texture" id=1]
 [ext_resource path="res://Resources/hp_bar_over.png" type="Texture" id=2]
 [ext_resource path="res://Resources/1_KNIGHT/1_shield_.png" type="Texture" id=3]
 [ext_resource path="res://Resources/Fonte1.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://Scenes/Animations/Hit_Number.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 
@@ -16,6 +15,8 @@ var curr_hp
 var max_hp
 var armor
 var node_armor
+var hitnr_load = preload(\"res://Scenes/Animations/Hit_Number.tscn\")
+var hitnr_node
 
 func _ready():
 	node_armor = get_node(\"armor_sprite\")
@@ -35,7 +36,7 @@ func update_hp(hp,armor):
 	self.armor = armor
 	if armor <= 0:
 		node_armor.hide()
-	get_node(\"Hit_Number\").hit(new_val - hp)
+	show_dmg_nr(new_val - hp)
 	new_val = hp
 	
 	pass
@@ -53,7 +54,13 @@ func create_hp(max_hp,armor):
 
 func _on_TextureProgress_changed():
 	pass # replace with function body
-"
+
+func show_dmg_nr(val):
+	hitnr_node = hitnr_load.instance()
+	add_child(hitnr_node)
+	hitnr_node.set_global_pos(get_node(\"Position2D\").get_global_pos())
+	hitnr_node.hit(-val)
+	pass"
 
 [node name="Hp_Bar" type="Node2D"]
 
@@ -111,8 +118,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Hit_Number" parent="." instance=ExtResource( 5 )]
+[node name="Position2D" type="Position2D" parent="."]
 
-transform/pos = Vector2( 275.613, -24.2054 )
+transform/pos = Vector2( 294.35, -6.88301 )
 
 

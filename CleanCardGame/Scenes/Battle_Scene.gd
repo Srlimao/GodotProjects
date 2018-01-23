@@ -40,7 +40,7 @@ func save_game():
 func _on_Button_button_up():
 	if curr_turn == TURN.player:
 		player_node.atk(1, enemy_node)
-		curr_turn = TURN.enemy
+		#curr_turn = TURN.enemy
 		emit_signal("change_turn")
 	pass # replace with function body
 

@@ -9,27 +9,34 @@ script/source = "extends Node2D
 # class member variables go here, for example:
 # var a = 2
 # var b = \"textvar\"
-const speed = 100
+const speed = 1
+var x = rand_range(-100,100)
+var curve
 
 func _ready():
 	set_fixed_process(true)
+	randomize()
 	print(get_node(\"Path2D\").get_curve().get_path())
-	var curve = Curve2D.new()
-	curve.add_point(Vector2(200,200),Vector2(1,0),Vector2(0,1))
-	curve.add_point(Vector2(0,0),Vector2(1,0),Vector2(0,1))
+	curve = Curve2D.new()
+	curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
+	curve.add_point(Vector2(x,-200),Vector2(-100,50),Vector2(0,0))
 	get_node(\"Path2D\").set_curve(curve)
 	pass
 
 func _fixed_process(delta):
-	
-	get_node(\"Path2D/PathFollow2D\").set_offset(get_node(\"Path2D/PathFollow2D\").get_offset() + delta * speed)
+	if get_node(\"Path2D/PathFollow2D\").get_unit_offset() >=1:
+		x = rand_range(-100,100)
+		curve.remove_point(1)
+		curve.add_point(Vector2(x,-200),Vector2(-x,x/2),Vector2(0,0))
+		get_node(\"Path2D/PathFollow2D\").set_unit_offset(0)
+	get_node(\"Path2D/PathFollow2D\").set_unit_offset(get_node(\"Path2D/PathFollow2D\").get_unit_offset() + delta * speed)
 	pass"
 
 [sub_resource type="Curve2D" id=2]
 
 bake_interval = 5.0
 _data = {
-"points": Vector2Array( 0, 0, 4.32288, -70.7872, 92, -21, 0, 0, 0, 0, 162, -65 )
+"points": Vector2Array( 0, 0, 97, -101, 3.11859, 197.619, 0, 0, 0, 0, -0.881409, -2.38104 )
 }
 
 [node name="bg" type="Node2D"]
@@ -43,12 +50,14 @@ curve = SubResource( 2 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 
+transform/pos = Vector2( 3.11859, 197.619 )
+transform/rot = 46.738
 offset = 0.0
 h_offset = 0.0
 v_offset = 0.0
-rotate = true
+rotate = false
 cubic_interp = true
-loop = true
+loop = false
 lookahead = 4.0
 
 [node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]

@@ -1,12 +1,11 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://Scenes/Battle_Scene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Rain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/bg1.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Resources/rain1.png" type="Texture" id=6]
-[ext_resource path="res://Resources/badge_outline.png" type="Texture" id=7]
+[ext_resource path="res://Resources/badge_outline.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -113,29 +112,6 @@ drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 script/script = SubResource( 2 )
 
-[node name="Light2D" type="Light2D" parent="."]
-
-transform/pos = Vector2( 559.303, 419.799 )
-enabled = true
-editor_only = false
-texture = ExtResource( 6 )
-offset = Vector2( 0, 0 )
-scale = 1.0
-color = Color( 1, 1, 1, 1 )
-energy = 100.0
-mode = 0
-range/height = 0.0
-range/z_min = -1024
-range/z_max = 1024
-range/layer_min = -512
-range/layer_max = 512
-range/item_mask = 1
-shadow/enabled = true
-shadow/color = Color( 0, 0, 0, 1 )
-shadow/buffer_size = 2048
-shadow/esm_multiplier = 80.0
-shadow/item_mask = 1
-
 [node name="TextureButton" type="TextureButton" parent="."]
 
 focus/ignore_mouse = false
@@ -149,12 +125,10 @@ margin/bottom = 276.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 7 )
+textures/normal = ExtResource( 6 )
 params/resize_mode = 0
 params/stretch_mode = 0
 params/modulate = Color( 0, 0, 0, 1 )
-
-[connection signal="change_turn" from="." to="Enemy" method="_on_Battle_Scene_change_turn"]
 
 [connection signal="perform_attack" from="Player" to="Camera2D" method="shake"]
 

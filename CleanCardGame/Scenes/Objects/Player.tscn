@@ -15,7 +15,7 @@ script/source = "extends KinematicBody2D
 signal perform_attack
 
 var hp = 20
-var bp = 10
+var bp = 3
 var armor = 10
 var base_dmg = 2
 var name

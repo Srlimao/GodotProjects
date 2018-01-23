@@ -7,47 +7,27 @@
 resource/name = "hitnumber_script"
 script/source = "extends Node2D
 
-var tempo = 0.6
-var angle
-onready var orig_pos = get_pos()
-var elv_location = 0
-export var elv_speed = .03
+const speed = 1
+var x = rand_range(-100,100)
+var curve
 
 func _ready():
 	randomize()
-	var curve2 = Curve2D.new()
-	curve2.add_point(get_global_pos())
-	curve2.add_point(get_global_pos() + Vector2(1,0) * 50)
-	get_node(\"Path2D\").set_curve(curve2)
-	set_fixed_process(true)
-	set_hidden(true)
+	curve = Curve2D.new()
+	curve.add_point(Vector2(0,0),Vector2(0,0),Vector2(0,0))
+	curve.add_point(Vector2(x,-200),Vector2(-100,50),Vector2(0,0))
+	get_node(\"Path2D\").set_curve(curve)
 	pass
+
 func _fixed_process(delta):
-	get_node(\"Path2D/PathFollow2D\").set_unit_offset(elv_location)
-	elv_location += elv_speed
-	if elv_location >=1:
-		set_fixed_process(false)
-		set_hidden(true)
-		elv_location = 0
-
+	if get_node(\"Path2D/PathFollow2D\").get_unit_offset() >=1:
+		self.queue_free()
+	get_node(\"Path2D/PathFollow2D\").set_unit_offset(get_node(\"Path2D/PathFollow2D\").get_unit_offset() + delta * speed)
 	pass
 
-func _process(delta):
-	
-	
-#	self.set_pos(self.get_pos() + angle * delta * 300)
-#	tempo -= delta
-#	if tempo <= 0:
-#		set_hidden(true)
-#		self.set_pos(orig_pos)
-#		tempo = 0.6
-#		set_process(false)
-	pass
 
 func hit(val):
-	angle = Vector2(rand_range(-0.5,0.5),-1)
 	get_node(\"Path2D/PathFollow2D/KinematicBody2D/Label\").set_text(str(val))
-	set_hidden(false)
 	set_fixed_process(true)
 	pass"
 
@@ -61,9 +41,7 @@ _data = {
 
 [node name="Hit_Number" type="Node2D"]
 
-transform/pos = Vector2( 114, 200 )
 script/script = SubResource( 1 )
-elv_speed = 0.03
 
 [node name="Path2D" type="Path2D" parent="."]
 
@@ -78,14 +56,13 @@ h_offset = 0.0
 v_offset = 0.0
 rotate = false
 cubic_interp = true
-loop = true
+loop = false
 lookahead = 4.0
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="Path2D/PathFollow2D"]
 
 transform/pos = Vector2( -1.27094, 2.90322 )
 transform/rot = -88.8584
-transform/scale = Vector2( 1, 1 )
 input/pickable = false
 collision/layers = 1
 collision/mask = 1
