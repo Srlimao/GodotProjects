@@ -1,0 +1,6 @@
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\bin\Tools\RotatePawn.dll
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\bin\Tools\RotatePawn.pdb
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\obj\Tools\RotatePawn.csprojResolveAssemblyReference.cache
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\obj\Tools\RotatePawn.csproj.CoreCompileInputs.cache
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\obj\Tools\RotatePawn.dll
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\rotpawn\.mono\temp\obj\Tools\RotatePawn.pdb

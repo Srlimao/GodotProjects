@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://MainView.cs" type="Script" id=1]
+[ext_resource path="res://Housing.cs" type="Script" id=2]
+
+[node name="MainView" type="Node2D" index="0"]
+
+position = Vector2( 0, 1.81372 )
+scale = Vector2( 1, 1.05668 )
+script = ExtResource( 1 )
+
+[node name="Housing" type="Node2D" parent="." index="0"]
+
+position = Vector2( 2.51758, -2.38251 )
+script = ExtResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="TopPoint" type="Position2D" parent="Housing" index="0"]
+
+position = Vector2( 147.768, -3.0465 )
+scale = Vector2( 1, 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="BotPoint" type="Position2D" parent="Housing" index="1"]
+
+position = Vector2( 148.534, 483.645 )
+_sections_unfolded = [ "Transform" ]
+
+

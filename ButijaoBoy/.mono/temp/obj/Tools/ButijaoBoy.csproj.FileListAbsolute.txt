@@ -1,0 +1,6 @@
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\bin\Tools\ButijaoBoy.dll
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\bin\Tools\ButijaoBoy.pdb
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\obj\Tools\ButijaoBoy.csprojResolveAssemblyReference.cache
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\obj\Tools\ButijaoBoy.csproj.CoreCompileInputs.cache
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\obj\Tools\ButijaoBoy.dll
+C:\Users\wbsilveira\Documents\GitHub\GodotProjects\ButijaoBoy\.mono\temp\obj\Tools\ButijaoBoy.pdb
